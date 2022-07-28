@@ -5,12 +5,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class CommandFactory {
-    private static final Map<String, Class<? extends Command>> COMMANDS = Map.of(
+    public static final Map<String, Class<? extends Command>> COMMANDS = Map.of(
             "PLACE", PlaceCommand.class,
             "LEFT", LeftCommand.class,
             "RIGHT", RightCommand.class,
             "MOVE", MoveCommand.class,
-            "REPORT", ReportCommand.class
+            "REPORT", ReportCommand.class,
+            "EXIT", ExitCommand.class
     );
 
     public static Command getCommand(String input) {
