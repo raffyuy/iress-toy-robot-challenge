@@ -4,6 +4,7 @@ import com.iress.robot.commands.Command;
 import com.iress.robot.commands.CommandFactory;
 import com.iress.robot.commands.ExitCommand;
 import com.iress.robot.commands.ParameterisedCommand;
+import com.iress.robot.model.Robot;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,19 +13,18 @@ import java.io.InputStreamReader;
 public class ToyRobotApplication {
 
     public static void main(String[] args) throws IOException {
+        Robot robot = new Robot();
+
         System.out.println("Please input a command");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             Command command = null;
             while (command == null || command.getClass() != ExitCommand.class) {
                 command = getValidCommand(reader);
                 if (command != null) {
-                    System.out.println(command.getClass());
+                    command.execute(robot);
                 } else {
                     System.out.println("Invalid command. Valid commands are: ");
                     CommandFactory.COMMANDS.keySet().forEach(System.out::println);
-                }
-                if (command instanceof ParameterisedCommand) {
-                    System.out.println("Is parameterised");
                 }
             }
         }
